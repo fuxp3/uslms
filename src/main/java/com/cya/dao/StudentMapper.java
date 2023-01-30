@@ -14,4 +14,9 @@ public interface StudentMapper {
 
     List<Student> findListByLike(String keyword);
 
+    int deleteById(Integer id);
+
+    int updateStu(Student student);
+
+    Student findStudentById(Integer id);
 }

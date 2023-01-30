@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="utf-8">
+    <!--字体图标-->
+    <link href="../javaex/pc/css/icomoon.css" rel="stylesheet" />
+    <!--动画-->
+    <link href="../javaex/pc/css/animate.css" rel="stylesheet" />
+    <!--骨架样式-->
+    <link href="../javaex/pc/css/common.css" rel="stylesheet" />
+    <!--皮肤（缇娜）-->
+    <link href="../javaex/pc/css/skin/tina.css" rel="stylesheet" />
+    <!--jquery，不可修改版本-->
+    <script src="../javaex/pc/lib/jquery-1.7.2.min.js"></script>
+    <!--全局动态修改-->
+    <script src="../javaex/pc/js/common.js"></script>
+    <!--核心组件-->
+    <script src="../javaex/pc/js/javaex.min.js"></script>
+    <!--表单验证-->
+    <script src="../javaex/pc/js/javaex-formVerify.js"></script>
+    <title>图书管理系统-编辑用户信息</title>
+</head>
+<style>
+
+</style>
+
+<body style="background: white;">
+<!--全部主体内容-->
+<div class="list-content">
+    <!--块元素-->
+    <div>
+        <!--修饰块元素名称-->
+        <div class="banner">
+            <p class="tab">编辑学生信息</p>
+        </div>
+
+        <!--正文内容-->
+        <div class="main">
+            <form id="form">
+                <div class="unit clear">
+                    <div class="left"><span class="required">*</span><p class="subtitle">学号</p></div>
+                    <div class="right">
+                        <input type="text" class="text" id="number" name="number"/>
+                    </div>
+                </div>
+
+                <div class="unit clear">
+                    <div class="left"><span class="required">*</span><p class="subtitle">姓名</p></div>
+                    <div class="right">
+                        <input type="text" class="text" id="name" name="name"/>
+                    </div>
+                </div>
+
+                <div class="unit clear">
+                    <div class="left"><span class="required">*</span><p class="subtitle">性别</p></div>
+                    <div class="right">
+                        <input type="radio" name="sex" value="男"/>男
+                        <input type="radio" name="sex" value="女"/>女
+                    </div>
+                </div>
+
+                <div class="unit clear">
+                    <div class="left"><span class="required">*</span><p class="subtitle">所属学院</p></div>
+                    <div class="right">
+                        <input type="text" class="text" id="college" name="college"/>
+                    </div>
+                </div>
+
+                <div class="unit clear">
+                    <div class="left"><span class="required">*</span><p class="subtitle">所学专业</p></div>
+                    <div class="right">
+                        <input type="text" class="text" id="major" name="major"/>
+                    </div>
+                </div>
+
+                <div class="unit clear">
+                    <div class="left"><span class="required">*</span><p class="subtitle">入学年份</p></div>
+                    <div class="right">
+                        <input type="text" class="text" id="year" name="year"/>
+                    </div>
+                </div>
+
+
+                <!--提交按钮-->
+                <div class="unit clear" style="width: 800px;">
+                    <div style="text-align: center;">
+                        <!--表单提交时，必须是input元素，并指定type类型为button，否则ajax提交时，会返回error回调函数-->
+                        <input type="button" id="return" class="button no" value="返回" />
+                        <input type="button" id="save" class="button yes" value="保存" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+    /*javaex.date({
+        id : "birthday",	// 承载日期组件的id
+        isTime : true,
+        date : "2022-09-15 01:01:01",	// 选择的日期
+        // 重新选择日期之后返回一个时间对象
+        callback : function(rtn) {
+        }
+    });*/
+
+    // 页面加载执行
+    $(document).ready(function(){
+        var id = getQueryVariable("id");
+        // get读取参数
+        $.get("../student/detail",{"id": id}, function(data){
+            var user = data.data;
+            console.log("user",user)
+            $("#number").val(user.number);
+            $("#name").val(user.name);
+            $("input[name='sex'][value="+user.sex+"]").attr("checked",true);
+            $("#college").val(user.college);
+            $("#major").val(user.major);
+            $("#year").val(user.year);
+            //$("#birthday").val(user.birth);
+            //$("#tel").val(user.tel);
+            //$("#email").val(user.email);
+            //$("#address").val(user.address);
+            //$("#size").val(user.size);
+            //$("#select option[value='"+user.isAdmin+"']").prop("selected", true);
+            return false;
+        });
+    });
+
+    // 监听点击保存按钮事件
+    $("#save").click(function() {
+        var id = getQueryVariable("id");
+        // 表单验证函数
+        var number = $("#number").val();
+        var name = $("#name").val();
+        var sex = $('input[name="sex"]:checked').val();
+        var college = $("#college").val();
+        var major = $("#major").val();
+        var year = $("#year").val();
+        //var birthday = $("#birthday").val();
+        //var tel = $("#tel").val();
+        //var email = $("#email").val();
+        //var address = $("#address").val();
+        //var size = $("#size").val();
+        //var isAdmin = $('#select option:selected').val();// 身份
+
+        /*if (nickname == ""||nickname.length>12) {
+            javaex.optTip({
+                content : "昵称不能为空且长度不能大于12",
+                type : "error"
+            });
+            return false;
+        }
+
+        if (username == ""||username.length>12) {
+            javaex.optTip({
+                content : "用户名不能为空且长度不能大于12",
+                type : "error"
+            });
+            return false;
+        }
+
+        if (password == ""||password.length>18) {
+            javaex.optTip({
+                content : "密码不能为空且长度不能大于18",
+                type : "error"
+            });
+            return false;
+        }
+        if (isAdmin == "") {
+            javaex.optTip({
+                content : "用户身份不能为空!",
+                type : "error"
+            });
+
+            return false;
+        }*/
+        /*if (size == "" || parseInt(size) <0) {
+            javaex.optTip({
+                content : "可借数量不能小于0!",
+                type : "error"
+            });
+
+            return false;
+        }*/
+
+
+        var json = {"id":id,"number":number,"name":name,"sex":sex,"college":college,"major":major,"year":year};
+
+        console.log("json",json)
+        $.ajax({
+            //请求方式
+            type : "POST",
+            //请求的媒体类型
+            contentType: "application/json;charset=UTF-8",
+            //请求地址
+            url : "../student/update",
+            //数据，json字符串
+            data : JSON.stringify(json),
+            //请求成功
+            success : function(result) {
+                console.log(result);
+                // 获取集合属性
+                var data = result.data;
+                var code = result.code;
+
+                if (code == 200) {
+                    javaex.message({
+                        content : "修改信息成功",
+                        type : "success"
+                    });
+
+                    // 跳转至列表
+                    setTimeout(function(){window.location.href="../student/stu-list";},1000)
+                }
+
+            },
+            //请求失败，包含具体的错误信息
+            error : function(e){
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        });
+    });
+
+    // 监听点击返回按钮事件
+    $("#return").click(function() {
+        window.location.href="../student/stu-list";
+    });
+
+    // 获取地址栏参数
+    function getQueryVariable(variable){
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return false;
+    }
+</script>
+</body>
+</html>

@@ -26,4 +26,12 @@ public class StudentService {
         List<Student> listByLike = studentMapper.findListByLike(pageIn.getKeyword());
         return new PageInfo<>(listByLike);
     }
+
+    public void deleteStudent(Integer id) {
+        studentMapper.deleteById(id);
+    }
+
+    public boolean updateStu(Student student){
+        return studentMapper.updateStu(student)>0;
+    }
 }

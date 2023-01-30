@@ -1,5 +1,6 @@
 package com.cya.controller;
 
+import com.cya.dao.StudentMapper;
 import com.cya.entity.Student;
 import com.cya.service.StudentService;
 import com.cya.util.R;
@@ -8,10 +9,7 @@ import com.cya.util.ro.PageIn;
 import com.cya.util.vo.PageOut;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/student")
@@ -19,6 +17,9 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private StudentMapper studentMapper;
 
     @PostMapping("/list")
     public R getUsers(@RequestBody PageIn pageIn) {
@@ -43,5 +44,25 @@ public class StudentController {
             return R.fail(CodeEnum.PARAM_ERROR);
         }
         return R.success(CodeEnum.SUCCESS,studentService.addStu(student));
+    }
+
+    @GetMapping("/delete")
+    public R delUsers(Integer id) {
+        studentService.deleteStudent(id);
+        return R.success(CodeEnum.SUCCESS);
+    }
+
+    @PostMapping("/update")
+    public R modifyUsers(@RequestBody Student student) {
+        return R.success(CodeEnum.SUCCESS,studentService.updateStu(student));
+    }
+
+    @GetMapping("/detail")
+    public R userDetail(Integer id) {
+        Student student = studentMapper.findStudentById(id);
+        if (student!=null) {
+            return R.success(CodeEnum.SUCCESS,student);
+        }
+        return R.fail(CodeEnum.NOT_FOUND);
     }
 }

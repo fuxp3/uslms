@@ -5,10 +5,10 @@ import cn.hutool.core.date.DateUtil;
 import com.cya.dao.BookMapper;
 import com.cya.entity.Book;
 import com.cya.repos.BookRepository;
+import com.cya.util.consts.ConvertUtil;
+import com.cya.util.ro.BookPageIn;
 import com.cya.util.vo.BookOut;
 import com.cya.util.vo.PageOut;
-import com.cya.util.consts.ConvertUtil;
-import com.cya.util.ro.PageIn;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,10 +107,10 @@ public class BookService {
      * @param pageIn
      * @return
      */
-    public PageOut getBookList(PageIn pageIn) {
+    public PageOut getBookList(BookPageIn pageIn) {
 
         PageHelper.startPage(pageIn.getCurrPage(),pageIn.getPageSize());
-        List<Book> list = bookMapper.findBookListByLike(pageIn.getKeyword());
+        List<Book> list = bookMapper.findBookListByLike(pageIn);
         PageInfo<Book> pageInfo = new PageInfo<>(list);
 
         List<BookOut> bookOuts = new ArrayList<>();

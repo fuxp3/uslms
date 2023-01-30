@@ -16,13 +16,21 @@
     </resultMap>
 
     <!-- 模糊查询 倒序 -->
-    <select id="findBookListByLike" resultMap="BaseResultMap" >
+    <select id="findBookListByLike" resultMap="BaseResultMap" parameterType="com.cya.util.ro.BookPageIn">
         select * from book
-        <where>
-            <if test="_parameter != null and _parameter != ''">
-               and `name` like CONCAT('%',#{_parameter},'%') or `isbn` like CONCAT('%',#{_parameter},'%') or `author` like CONCAT('%',#{_parameter},'%')
-            </if>
-        </where>
+        where 1=1
+        <if test="name != null and name != ''">
+            and name like CONCAT('%',#{name},'%')
+        </if>
+        <if test="isbn != null and isbn != ''">
+            and isbn like CONCAT('%',#{isbn},'%')
+        </if>
+        <if test="publish != null and publish != ''">
+            and publish = #{publish}
+        </if>
+        <if test="type != null and type != ''">
+            and type = #{type}
+        </if>
         order by id desc
     </select>
 

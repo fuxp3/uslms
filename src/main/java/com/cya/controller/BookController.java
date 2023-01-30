@@ -5,7 +5,7 @@ import com.cya.service.BookService;
 import com.cya.service.BorrowService;
 import com.cya.util.R;
 import com.cya.util.http.CodeEnum;
-import com.cya.util.ro.PageIn;
+import com.cya.util.ro.BookPageIn;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class BookController {
 
     @ApiOperation("图书搜索列表")
     @PostMapping("/list")
-    public R getBookList(@RequestBody PageIn pageIn) {
+    public R getBookList(@RequestBody BookPageIn pageIn) {
         if (pageIn == null) {
             return R.fail(CodeEnum.PARAM_ERROR);
         }

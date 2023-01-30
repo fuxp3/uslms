@@ -33,4 +33,38 @@
             </if>
         </where>
     </select>
+
+    <select id="findStudentById" resultType="com.cya.entity.Student">
+        select * from student where id = #{id}
+    </select>
+
+    <delete id="deleteById">
+        delete from student where id = #{id}
+    </delete>
+
+    <update id="updateStu" parameterType="com.cya.entity.Student">
+        update student
+        <set>
+            <if test="number != null and number != ''">
+                number = #{number},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="college != null and college != ''">
+                college = #{college},
+            </if>
+            <if test="major != null and major != ''">
+                major = #{major},
+            </if>
+            <if test="year != null and year != ''">
+                year = #{year},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
 </mapper>

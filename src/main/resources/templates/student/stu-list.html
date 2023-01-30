@@ -124,7 +124,7 @@
                         "<td>"+value.college+"</td>"+
                         "<td>"+value.major+"</td>"+
                         "<td>"+value.year+"</td><td>"+
-                        "<button class='button blue empty' onclick='updateBook("+value.id+")'>编辑</button> &nbsp;<button class='button yellow empty' onclick='delBook("+value.id+")'>删除</button></td></tr>";
+                        "<button class='button blue empty' onclick='updateStu("+value.id+")'>编辑</button> &nbsp;<button class='button yellow empty' onclick='delStu("+value.id+")'>删除</button></td></tr>";
                 });
 
                 $("#tbody").html(text);
@@ -166,9 +166,9 @@
     }
 
     // 编辑
-    function updateBook(id) {
-        console.log("update user"+id);
-        window.location.href="../user/user-update?id="+id;
+    function updateStu(id) {
+        console.log("update student"+id);
+        window.location.href="../student/stu-update?id="+id;
     }
 
     // 新增
@@ -177,8 +177,8 @@
     }
 
     // 删除
-    function delBook(id) {
-        console.log("delete user"+id);
+    function delStu(id) {
+        console.log("delete student"+id);
         javaex.confirm({
             content : "确定要删除么",
             callback : "delCallback("+id+")"
@@ -187,7 +187,7 @@
 
     function delCallback(id) {
         // ajax
-        $.get("../user/delete",{"id": id},
+        $.get("../student/delete",{"id": id},
             function(data){
                 var code = data.code;
                 if (code == 200) {
