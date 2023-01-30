@@ -24,27 +24,20 @@
     
 </style>
 
-<body>
+<body style="background: white;">
     <!--全部主体内容-->
 <div class="list-content">
 	<!--块元素-->
-	<div class="block">
+	<div>
 		<!--修饰块元素名称-->
 		<div class="banner">
-			<p class="tab fixed">添加用户</p>
+			<p class="tab">添加用户</p>
 		</div>
 	
 		<!--正文内容-->
 		<div class="main">
 			<form id="form">
 				<!--文本框-->
-				<div class="unit clear">
-					<div class="left"><span class="required">*</span><p class="subtitle">昵称</p></div>
-					<div class="right">
-						<input type="text" class="text" id="nickname" name="nickname"/>
-					</div>
-				</div>
-
 				<div class="unit clear">
 					<div class="left"><span class="required">*</span><p class="subtitle">用户名</p></div>
 					<div class="right">
@@ -60,12 +53,19 @@
 				</div>
 
 				<div class="unit clear">
-					<div class="left"><span class="required"></span><p class="subtitle">生日</p></div>
+					<div class="left"><span class="required">*</span><p class="subtitle">姓名</p></div>
 					<div class="right">
-						<!-- <input type="text" class="text" id="birthday" name="birthday"/> -->
-						<input type="text" id="birthday" class="ex-date" value="" readonly/>
+						<input type="text" class="text" id="nickname" name="nickname"/>
 					</div>
 				</div>
+
+				<!--<div class="unit clear">
+					<div class="left"><span class="required"></span><p class="subtitle">生日</p></div>
+					<div class="right">
+						&lt;!&ndash; <input type="text" class="text" id="birthday" name="birthday"/> &ndash;&gt;
+						<input type="text" id="birthday" class="ex-date" value="" readonly/>
+					</div>
+				</div>-->
 
 				<div class="unit clear">
 					<div class="left"><span class="required"></span><p class="subtitle">电话</p></div>
@@ -80,32 +80,32 @@
 					<div class="right">
 						<select id="select">
 							<option value="">请选择</option>
-							<option value="0">管理员</option>
-							<option value="1">普通用户</option>
+							<option value="0">系统管理员</option>
+							<option value="1">图书管理员</option>
 						</select>
 					</div>
 				</div>
 
-				<div class="unit clear">
+				<!--<div class="unit clear">
 					<div class="left"><span class="required"></span><p class="subtitle">邮箱</p></div>
 					<div class="right">
 						<input type="text" class="text" id="email" name="email"/>
 					</div>
-				</div>
+				</div>-->
 
-				<div class="unit clear">
+				<!--<div class="unit clear">
 					<div class="left"><span class="required"></span><p class="subtitle">地址</p></div>
 					<div class="right">
 						<input type="text" class="text" id="address" name="address"/>
 					</div>
-				</div>
+				</div>-->
 
-				<div class="unit clear">
+				<!--<div class="unit clear">
 					<div class="left"><span class="required">*</span><p class="subtitle">可借数量</p></div>
 					<div class="right">
 						<input type="text" class="text" id="size" name="size" oninput="value=value.replace(/[^\d]/g,'')"/>
 					</div>
-				</div>
+				</div>-->
 				<br>
 				<br>
 
@@ -129,14 +129,14 @@
 		isSearch : false
 	});
 	
-	javaex.date({
+	/*javaex.date({
 		id : "birthday",	// 承载日期组件的id
 		isTime : true,
 		date : dateFormat("YYYY-mm-dd",new Date()),	// 选择的日期
 		// 重新选择日期之后返回一个时间对象
 		callback : function(rtn) {
 		}
-	});
+	});*/
 
 	// 监听点击保存按钮事件
 	$("#save").click(function() {
@@ -144,11 +144,11 @@
 		var nickname = $("#nickname").val();
 		var username = $("#username").val();
 		var password = $("#password").val();
-		var birthday = $("#birthday").val();
+		//var birthday = $("#birthday").val();
 		var tel = $("#tel").val();
-		var email = $("#email").val();
-		var address = $("#address").val();
-		var size = $("#size").val();
+		//var email = $("#email").val();
+		//var address = $("#address").val();
+		//var size = $("#size").val();
         var isAdmin = $('#select option:selected').val();// 身份
 
 		if (nickname == ""||nickname.length>12) {
@@ -182,16 +182,16 @@
 
             return false;
         }
-        if (size == "" || parseInt(size) <0) {
+        /*if (size == "" || parseInt(size) <0) {
             javaex.optTip({
                 content : "可借数量不能小于0!",
                 type : "error"
             });
 
             return false;
-        }
+        }*/
 
-		var json = {"nickname":nickname,"username":username,"password":password,"birthday":birthday,"tel":tel,"email":email,"address":address,"size":size,"isAdmin":isAdmin};
+		var json = {"nickname":nickname,"username":username,"password":password,"tel":tel,"isAdmin":isAdmin};
         $.ajax({
             //请求方式
             type : "POST",

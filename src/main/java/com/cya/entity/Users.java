@@ -12,8 +12,6 @@ import java.util.Date;
 
 /**
  * @Description 用户实体类
- * @Date 2022/9/4 16:35
- *
  */
 @Data
 @NoArgsConstructor

@@ -161,11 +161,11 @@ span.clearfix{display: block; margin: 0; padding: 0; height: auto; line-height: 
 .content-header{width: 100%;margin-top: 0px;z-index: 20;}
 .breadcrumb{height: 50px;line-height: 50px;padding-left: 20px;overflow-y: auto;overflow-x: hidden;}
 .breadcrumb .divider{margin: 0 3px;}
-.list-content{background: none;border:0;margin: 20px 20px 0 20px;-webkit-border-radius: '0';-moz-border-radius: '0';border-radius: '0';}
+.list-content{background: none;border:0;-webkit-border-radius: '0';-moz-border-radius: '0';border-radius: '0';}
 [class^="list-content-"]{background: none;border:0;-webkit-border-radius: '0';-moz-border-radius: '0';border-radius: '0';}
 .block{position: relative;margin: 0 auto 20px;padding: 0;width: 100%;}
 .block.visible{overflow: visible;}
-.admin-search{text-align:right;margin-bottom:10px;}
+.admin-search{text-align:left;margin-bottom:10px;}
 /*去除阴影*/
 .block.no-shadow{box-shadow:none;}
 .block>h2{font-weight: normal;line-height: 60px;padding-left: 20px;}

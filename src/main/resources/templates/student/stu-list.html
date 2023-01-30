@@ -1,85 +1,86 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8">
-<!--字体图标-->
-<link href="../javaex/pc/css/icomoon.css" rel="stylesheet" />
-<!--动画-->
-<link href="../javaex/pc/css/animate.css" rel="stylesheet" />
-<!--骨架样式-->
-<link href="../javaex/pc/css/common.css" rel="stylesheet" />
-<!--皮肤（缇娜）-->
-<link href="../javaex/pc/css/skin/tina.css" rel="stylesheet" />
-<!--jquery，不可修改版本-->
-<script src="../javaex/pc/lib/jquery-1.7.2.min.js"></script>
-<!--全局动态修改-->
-<script src="../javaex/pc/js/common.js"></script>
-<!--核心组件-->
-<script src="../javaex/pc/js/javaex.min.js"></script>
-<!--表单验证-->
-<script src="../javaex/pc/js/javaex-formVerify.js"></script>
-<title>用户列表</title>
+    <meta charset="utf-8">
+    <!--字体图标-->
+    <link href="../javaex/pc/css/icomoon.css" rel="stylesheet" />
+    <!--动画-->
+    <link href="../javaex/pc/css/animate.css" rel="stylesheet" />
+    <!--骨架样式-->
+    <link href="../javaex/pc/css/common.css" rel="stylesheet" />
+    <!--皮肤（缇娜）-->
+    <link href="../javaex/pc/css/skin/tina.css" rel="stylesheet" />
+    <!--jquery，不可修改版本-->
+    <script src="../javaex/pc/lib/jquery-1.7.2.min.js"></script>
+    <!--全局动态修改-->
+    <script src="../javaex/pc/js/common.js"></script>
+    <!--核心组件-->
+    <script src="../javaex/pc/js/javaex.min.js"></script>
+    <!--表单验证-->
+    <script src="../javaex/pc/js/javaex-formVerify.js"></script>
+    <title>学生列表</title>
 </head>
 
 <body style="background: white;">
-    <!--主体内容-->
+<!--主体内容-->
 <div class="list-content">
-	<!--块元素-->
-	<div>
-		<!--页面有多个表格时，可以用于标识表格-->
-		<h2>用户列表</h2>
-		<!--右上角的返回按钮-->
-		<!--<a href="javascript:history.back();">
-			<button class="button indigo radius-3" style="position: absolute;right: 20px;top: 16px;"><span class="icon-arrow_back"></span> 返回</button>
-		</a>-->
-		
-		<!--正文内容-->
-		<div class="main">
-			<!--表格上方的搜索操作-->
-			<div style="text-align: right;">
-				<button id="addBtn" class="button blue empty" onclick="addUser();">添加用户</button>
-			</div>
-			<div class="admin-search">
-				<div class="input-group">
-					<input id="keyword" type="text" class="text" placeholder="搜索用户名或者昵称" />
-					<button id="searchBtn" class="button blue" onclick="search();">搜索</button>
-				</div>
-			</div>
+    <!--块元素-->
+    <div>
+        <!--页面有多个表格时，可以用于标识表格-->
+        <h2>学生列表</h2>
+        <!--右上角的返回按钮-->
+        <!--<a href="javascript:history.back();">
+            <button class="button indigo radius-3" style="position: absolute;right: 20px;top: 16px;"><span class="icon-arrow_back"></span> 返回</button>
+        </a>-->
 
-			<!--表格上方的操作元素，添加、删除等-->
-			<!--
-			<div class="operation-wrap">
-				<div class="buttons-wrap">
-					<button class="button blue radius-3"><span class="icon-plus"></span> 添加</button>
-					<button class="button red radius-3"><span class="icon-close2"></span> 删除</button>
-				</div>
-			</div>
-			-->
-			<table id="table" class="table">
-				<thead>
-				<tr align="center">
-					<th>序号</th>
-					<th>姓名</th>
-					<th>用户名</th>
-					<th>密码</th>
-					<th>电话</th>
-					<th>身份</th>
-					<th>操作</th>
-				</tr>
-				</thead>
-				<tbody id="tbody">
-				<!--<tr>-->
-				<!--<td class="checkbox"><input type="checkbox" class="fill listen-1-2" /> </td>-->
-				<!--<td>1</td>-->
-				<!--<td><button class="button blue">编辑</button><button class="button red">删除</button></td>-->
-				<!--</tr>-->
-				</tbody>
-			</table>
+        <!--正文内容-->
+        <div class="main">
+            <!--表格上方的搜索操作-->
+            <div style="text-align: right;">
+                <button id="addBtn" class="button blue empty" onclick="addStu();">添加学生</button>
+            </div>
+            <div class="admin-search">
+                <div class="input-group">
+                    <input id="keyword" type="text" class="text" placeholder="搜索姓名或者学号" />
+                    <button id="searchBtn" class="button blue" onclick="search();">搜索</button>
+                </div>
+            </div>
 
-			<div class="page">
-				<ul id="page" class="pagination"></ul>
-			</div>
-		</div>
+            <!--表格上方的操作元素，添加、删除等-->
+            <!--
+            <div class="operation-wrap">
+                <div class="buttons-wrap">
+                    <button class="button blue radius-3"><span class="icon-plus"></span> 添加</button>
+                    <button class="button red radius-3"><span class="icon-close2"></span> 删除</button>
+                </div>
+            </div>
+            -->
+            <table id="table" class="table">
+                <thead>
+                <tr align="center">
+                    <th>序号</th>
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>所属学院</th>
+                    <th>所学专业</th>
+                    <th>入学年份</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                <!--<tr>-->
+                <!--<td class="checkbox"><input type="checkbox" class="fill listen-1-2" /> </td>-->
+                <!--<td>1</td>-->
+                <!--<td><button class="button blue">编辑</button><button class="button red">删除</button></td>-->
+                <!--</tr>-->
+                </tbody>
+            </table>
+
+            <div class="page">
+                <ul id="page" class="pagination"></ul>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -100,7 +101,7 @@
             //请求的媒体类型
             contentType: "application/json;charset=UTF-8",
             //请求地址
-            url : "../user/list",
+            url : "../student/list",
             //数据，json字符串
             data : JSON.stringify({"currPage":currPage,"keyword": keyword,"pageSize": pageSize}),
             //请求成功
@@ -119,9 +120,10 @@
                 $.each(array,function(index,value){
                     console.log(value);
                     var num = pageSize * (currPage - 1) + index + 1;
-                    text+= "<tr align='center'><td>"+num+"</td><td>"+value.nickname+"</td><td>"+value.username+"</td><td>"+value.password+"</td>" +
-                        "<td>"+value.tel+"</td>"+
-                        "<td>"+value.ident+"</td><td>"+
+                    text+= "<tr align='center'><td>"+num+"</td><td>"+value.number+"</td><td>"+value.name+"</td><td>"+value.sex+"</td>" +
+                        "<td>"+value.college+"</td>"+
+                        "<td>"+value.major+"</td>"+
+                        "<td>"+value.year+"</td><td>"+
                         "<button class='button blue empty' onclick='updateBook("+value.id+")'>编辑</button> &nbsp;<button class='button yellow empty' onclick='delBook("+value.id+")'>删除</button></td></tr>";
                 });
 
@@ -170,9 +172,9 @@
     }
 
     // 新增
-	function addUser(){
-		window.location.href="../user/user-add";
-	}
+    function addStu(){
+        window.location.href="../student/stu-add";
+    }
 
     // 删除
     function delBook(id) {

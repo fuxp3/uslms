@@ -24,27 +24,20 @@
     
 </style>
 
-<body>
+<body style="background: white;">
     <!--全部主体内容-->
 <div class="list-content">
 	<!--块元素-->
-	<div class="block">
+	<div>
 		<!--修饰块元素名称-->
 		<div class="banner">
-			<p class="tab fixed">编辑用户信息</p>
+			<p class="tab">编辑用户信息</p>
 		</div>
 	
 		<!--正文内容-->
 		<div class="main">
 			<form id="form">
 				<!--文本框-->
-				<div class="unit clear">
-					<div class="left"><span class="required">*</span><p class="subtitle">昵称</p></div>
-					<div class="right">
-						<input type="text" class="text" id="nickname" name="nickname"/>
-					</div>
-				</div>
-
 				<div class="unit clear">
 					<div class="left"><span class="required">*</span><p class="subtitle">用户名</p></div>
 					<div class="right">
@@ -60,12 +53,19 @@
 				</div>
 
 				<div class="unit clear">
-					<div class="left"><span class="required"></span><p class="subtitle">生日</p></div>
+					<div class="left"><span class="required">*</span><p class="subtitle">昵称</p></div>
 					<div class="right">
-						<!-- <input type="text" class="text" id="birthday" name="birthday"/> -->
-						<input type="text" id="birthday" class="ex-date" value="" readonly/>
+						<input type="text" class="text" id="nickname" name="nickname"/>
 					</div>
 				</div>
+
+				<!--<div class="unit clear">
+					<div class="left"><span class="required"></span><p class="subtitle">生日</p></div>
+					<div class="right">
+						&lt;!&ndash; <input type="text" class="text" id="birthday" name="birthday"/> &ndash;&gt;
+						<input type="text" id="birthday" class="ex-date" value="" readonly/>
+					</div>
+				</div>-->
 
 				<div class="unit clear">
 					<div class="left"><span class="required"></span><p class="subtitle">电话</p></div>
@@ -86,7 +86,7 @@
 					</div>
 				</div>
 
-				<div class="unit clear">
+				<!--<div class="unit clear">
 					<div class="left"><span class="required"></span><p class="subtitle">邮箱</p></div>
 					<div class="right">
 						<input type="text" class="text" id="email" name="email"/>
@@ -107,7 +107,7 @@
 					</div>
 				</div>
 				<br>
-				<br>
+				<br>-->
 
 				
 				<!--提交按钮-->
@@ -126,14 +126,14 @@
 <script>
 
 
-	javaex.date({
+	/*javaex.date({
 	    id : "birthday",	// 承载日期组件的id
 	    isTime : true,
 	    date : "2022-09-15 01:01:01",	// 选择的日期
 	    // 重新选择日期之后返回一个时间对象
 	    callback : function(rtn) {
 	    }
-	});
+	});*/
 
 	// 页面加载执行
     $(document).ready(function(){
@@ -145,11 +145,11 @@
             $("#nickname").val(user.nickname);
             $("#username").val(user.username);
             $("#password").val(user.password);
-            $("#birthday").val(user.birth);
+            //$("#birthday").val(user.birth);
             $("#tel").val(user.tel);
-            $("#email").val(user.email);
-            $("#address").val(user.address);
-            $("#size").val(user.size);
+            //$("#email").val(user.email);
+            //$("#address").val(user.address);
+            //$("#size").val(user.size);
             $("#select option[value='"+user.isAdmin+"']").prop("selected", true);
             return false;
 		});
@@ -162,11 +162,11 @@
 		var nickname = $("#nickname").val();
 		var username = $("#username").val();
 		var password = $("#password").val();
-		var birthday = $("#birthday").val();
+		//var birthday = $("#birthday").val();
 		var tel = $("#tel").val();
-		var email = $("#email").val();
-		var address = $("#address").val();
-		var size = $("#size").val();
+		//var email = $("#email").val();
+		//var address = $("#address").val();
+		//var size = $("#size").val();
         var isAdmin = $('#select option:selected').val();// 身份
 
 		if (nickname == ""||nickname.length>12) {
@@ -200,17 +200,17 @@
 
             return false;
         }
-        if (size == "" || parseInt(size) <0) {
+        /*if (size == "" || parseInt(size) <0) {
             javaex.optTip({
                 content : "可借数量不能小于0!",
                 type : "error"
             });
 
             return false;
-        }
+        }*/
 
 
-		var json = {"id":id,"nickname":nickname,"username":username,"password":password,"birthday":birthday,"tel":tel,"email":email,"address":address,"size":size,"isAdmin":isAdmin};
+		var json = {"id":id,"nickname":nickname,"username":username,"password":password,"tel":tel,"isAdmin":isAdmin};
 		
 		console.log("json",json)
         $.ajax({

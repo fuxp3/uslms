@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cya.dao.StudentMapper">
+    <insert id="addStu"
+            parameterType="com.cya.entity.Student"
+            useGeneratedKeys="true"
+            keyProperty="id">
+        insert into student
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="number != null">number,</if>
+            <if test="name != null">name,</if>
+            <if test="sex != null">sex,</if>
+            <if test="college != null">college,</if>
+            <if test="major != null">major,</if>
+            <if test="year != null">year,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="number != null">#{number},</if>
+            <if test="name != null">#{name},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="college != null">#{college},</if>
+            <if test="major != null">#{major},</if>
+            <if test="year != null">#{year},</if>
+        </trim>
+    </insert>
+
+    <select id="findListByLike" resultType="com.cya.entity.Student">
+        select * from student
+        <where>
+            <if test="_parameter != null and _parameter != ''">
+                and `number` like CONCAT('%',#{_parameter},'%') or `name` like
+                CONCAT('%',#{_parameter},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

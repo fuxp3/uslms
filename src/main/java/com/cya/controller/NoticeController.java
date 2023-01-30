@@ -22,8 +22,6 @@ import java.util.List;
 
 /**
  * @Description 公告管理
- * @Date 2022/9/4 16:35
- *
  */
 @Api(tags = "公告管理")
 @RestController

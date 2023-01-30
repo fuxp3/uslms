@@ -18,7 +18,7 @@
 <script src="javaex/pc/js/javaex.min.js"></script>
 <!--表单验证-->
 <script src="javaex/pc/js/javaex-formVerify.js"></script>
-<title>图书管理系统-首页</title>
+<title>城科图书馆管理系统-首页</title>
 <style>
 </style>
 </head>
@@ -47,48 +47,38 @@
 				<div class="menu-box">
 					<div id="menu" class="menu">
 						<ul id="adminMenu" style="display: none;">
-							<!--<li class="menu-item hover"><a
+							<li class="menu-item hover"><a
 								href="javascript:page('welcome');"><i class="icon-home2"></i>首页</a>
-							</li>-->
+							</li>
 
-							<li class="menu-item"><a href="javascript:;">图书管理<i
-									class="icon-keyboard_arrow_left"></i></a>
-								<ul>
-									<li><a href="javascript:page('book/book-list');">图书列表</a></li>
-									<li><a href="javascript:page('book/book-add');">图书上架</a></li>
-								</ul></li>
+							<li class="menu-item">
+								<a href="javascript:page('user/user-list');">用户管理</a>
+							</li>
 
-							<li class="menu-item"><a href="javascript:;">借阅管理<i
-									class="icon-keyboard_arrow_left"></i></a>
-								<ul>
-									<li><a href="javascript:page('borrow/book-list');">借阅图书</a></li>
-									<li><a href="javascript:page('borrow/back');">归还图书</a></li>
-								</ul></li>
+							<li class="menu-item">
+								<a href="javascript:page('student/stu-list');">学生管理</a>
+							</li>
 
-							<li class="menu-item"><a href="javascript:;">用户管理<i
-									class="icon-keyboard_arrow_left"></i></a>
-								<ul>
-									<li><a href="javascript:page('user/user-list');">用户列表</a></li>
-									<li><a href="javascript:page('user/user-add');">用户添加</a></li>
-								</ul></li>
+							<li class="menu-item">
+								<a href="javascript:page('my/my-update');">个人信息</a>
+							</li>
 
-							<li class="menu-item"><a href="javascript:;">公告管理<i
-									class="icon-keyboard_arrow_left"></i></a>
-								<ul>
-									<li><a href="javascript:page('notice/notice-list');">公告列表</a></li>
-									<li><a href="javascript:page('notice/notice-add');">公告发布</a></li>
-								</ul></li>
-
-							<li class="menu-item"><a href="javascript:;">个人中心<i
+							<!--<li class="menu-item"><a href="javascript:;">个人中心<i
 									class="icon-keyboard_arrow_left"></i></a>
 								<ul>
 									<li><a href="javascript:page('my/my-info');">个人信息详情</a></li>
 									<li><a href="javascript:page('my/my-update');">个人信息修改</a></li>
-								</ul></li>
+								</ul></li>-->
 						</ul>
+
+
 						<ul id="userMenu" style="display: none;">
 							<li class="menu-item hover"><a
 								href="javascript:page('welcome');"><i class="icon-home2"></i>首页</a>
+							</li>
+
+							<li class="menu-item">
+								<a href="javascript:page('book/book-list');">图书信息管理</a>
 							</li>
 
 							<li class="menu-item"><a href="javascript:;">借阅管理<i
@@ -102,6 +92,7 @@
 									class="icon-keyboard_arrow_left"></i></a>
 								<ul>
 									<li><a href="javascript:page('notice/notice-list');">公告列表</a></li>
+									<li><a href="javascript:page('notice/notice-add');">公告发布</a></li>
 								</ul></li>
 
 							<li class="menu-item"><a href="javascript:;">个人中心<i

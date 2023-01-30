@@ -31,8 +31,8 @@ public final class Constants {
     /** 普通用户 */
     public static final int USER = 1;
     /** 身份 */
-    public static final String ADMIN_STR = "管理员";
-    public static final String USER_STR = "普通用户";
+    public static final String ADMIN_STR = "系统管理员";
+    public static final String USER_STR = "图书管理员";
     
     
     /** 图书分类 */

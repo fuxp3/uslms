@@ -6,8 +6,6 @@ import org.springframework.stereotype.Controller;
 
 /**
  * @Description 用户登录
- * @Date 2022/9/4 16:35
- *
  */
 @Controller
 public class LoginController {
