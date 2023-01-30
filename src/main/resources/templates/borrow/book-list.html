@@ -21,28 +21,41 @@
 	<title>图书管理系统-图书列表</title>
 </head>
 
-<body>
+<body style="background: white;">
 <!--主体内容-->
 <div class="list-content">
 	<!--块元素-->
-	<div class="block">
+	<div>
 		<!--页面有多个表格时，可以用于标识表格-->
 		<h2>图书列表</h2>
 		<!--右上角的返回按钮-->
-		<a href="javascript:history.back();">
+		<!--<a href="javascript:history.back();">
 			<button class="button indigo radius-3" style="position: absolute;right: 20px;top: 16px;"><span class="icon-arrow_back"></span> 返回</button>
-		</a>
+		</a>-->
 
 		<!--正文内容-->
 		<div class="main">
 			<!--表格上方的搜索操作-->
-			<div class="admin-search">
-				<div class="input-group">
-					<input id="keyword" type="text" class="text" placeholder="输入图书名称、作者、ISBN等关键字" />
-					<button id="searchBtn" class="button blue" onclick="search();">搜索</button>
-				</div>
+			<div style="text-align: right;">
+				<button id="addBtn" class="button blue empty" onclick="returnBook();">还书</button>
 			</div>
 
+			<div>
+				图书名称：<input id="name" type="text" class="text" placeholder="" style="width: 120px;"/>
+				书号：<input id="isbn" type="text" class="text" placeholder="" style="width: 120px;"/>
+				出版社：<input id="publish" type="text" class="text" placeholder="" style="width: 120px;"/>
+				图书类别：
+				<select id="select" style="width: 160px;color: #333;font-size: 100%;height: 36px;line-height: 36px;padding: 0 10px;border-radius: 3px;border: 1px solid #ccc;outline: none;">
+					<option value=""></option>
+					<option value="1">马克思列宁主义、毛泽东思想、邓小平理论</option>
+					<option value="2">哲学、宗教</option>
+					<option value="3">文化、科学、教育、体育</option>
+					<option value="4">政治、法律</option>
+					<option value="5">历史、地理</option>
+				</select>
+
+				<button id="searchBtn" class="button blue" onclick="search();">搜索</button>
+			</div>
 			<!--表格上方的操作元素，添加、删除等-->
 			<!--
 			<div class="operation-wrap">
@@ -52,20 +65,16 @@
 				</div>
 			</div>
 			-->
+			<br/>
 			<table id="table" class="table color2">
 				<thead>
 				<tr align="center">
 					<th>序号</th>
-					<th>书名</th>
-					<th>作者</th>
-					<th>ISBN</th>
-					<th>页数</th>
-					<th>定价</th>
+					<th>图书名称</th>
+					<th>书号</th>
 					<th>出版社</th>
-					<th>出版时间</th>
-					<th>库存数量</th>
-					<th>翻译</th>
-					<th>分类</th>
+					<th>库存量</th>
+					<th>图书类别</th>
 					<th>操作</th>
 				</tr>
 				</thead>
@@ -91,11 +100,11 @@
     // 页面一加载, 展示数据列表, 每页10条
     $(document).ready(function(){
         // 默认查询所有
-        rander(1,"",10);
+		rander(1,"","","","",10);
     });
 
     // 渲染数据表格
-    function rander(currPage,keyword,pageSize) {
+    function rander(currPage,name,isbn,publish,type,pageSize) {
         // 定义全局 分页属性
         var total = 0;
         $.ajax({
@@ -106,7 +115,7 @@
             //请求地址
             url : "../book/list",
             //数据，json字符串
-            data : JSON.stringify({"currPage":currPage,"keyword": keyword,"pageSize": pageSize}),
+            data : JSON.stringify({"currPage":currPage,"name": name,"isbn":isbn,"publish":publish,"type":type,"pageSize": pageSize}),
             //请求成功
             success : function(result) {
                 console.log(result);
@@ -124,9 +133,9 @@
                 $.each(array,function(index,value){
                     console.log(value);
                     var num = pageSize * (currPage - 1) + index + 1;
-                    text+= "<tr align='center'><td>"+num+"</td><td>"+value.name+"</td><td>"+value.author+"</td><td>"+value.isbn+"</td>" +
-                        "<td>"+value.pages+"</td><td>"+value.price+"</td><td>"+value.publish+"</td><td>"+value.publishTime+"</td>" +
-                        "<td>"+value.size+"</td><td>"+value.translate+"</td><td>"+value.type+"</td><td>"+
+					text+= "<tr align='center'><td>"+num+"</td><td>"+value.name+"</td><td>"+value.isbn+"</td>" +
+							"<td>"+value.publish+"</td>" +
+							"<td>"+value.size+"</td><td>"+value.type+"</td><td>"+
                         "<button class='button blue empty' onclick='borrowBook("+value.id+")'>借阅</button></td></tr>";
                 });
 
@@ -147,7 +156,7 @@
                     position : "center",
                     callback : function(rtn) {
                         // 翻页
-                        rander(rtn.pageNum,keyword,rtn.perPageCount);
+                        rander(rtn.pageNum,name,isbn,publish,type,rtn.perPageCount);
                     }
                 });
             },
@@ -162,9 +171,12 @@
     // 搜索
     function search() {
         // 获取搜索关键字
-        var keyword = $("#keyword").val();
+		var name = $("#name").val();
+		var isbn = $("#isbn").val();
+		var publish = $("#publish").val();
+		var type = $("#select").val();
         // 搜索结果渲染表格
-        rander(1,keyword,10);
+        rander(1,name,isbn,publish,type,10);
     }
 
     // 借阅图书
@@ -174,6 +186,10 @@
             callback : "forwardBorrow("+id+")"
         });
     }
+
+    function returnBook(){
+		window.location.href = "../borrow/back";
+	}
 
     function forwardBorrow(id) {
         // 跳转借阅界面
