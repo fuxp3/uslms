@@ -39,10 +39,10 @@ public class BorrowService {
     @Transactional
     public Integer addBorrow(Borrow borrow) {
         Book book = bookService.findBook(borrow.getBookId());
-        Users users = userService.findUserById(borrow.getUserId());
+        //Users users = userService.findUserById(borrow.getUserId());
 
         // 查询是否已经借阅过该图书
-        Borrow bor = findBorrowByUserIdAndBookId(users.getId(),book.getId());
+        /*Borrow bor = findBorrowByUserIdAndBookId(users.getId(),book.getId());
         if (bor!=null) {
             Integer ret = bor.getRet();
             if (ret!=null) {
@@ -51,7 +51,7 @@ public class BorrowService {
                     return Constants.BOOK_BORROWED;
                 }
             }
-        }
+        }*/
 
         // 库存数量减一
         int size = book.getSize();
@@ -64,14 +64,14 @@ public class BorrowService {
         }
 
         // 用户可借数量减一
-        int userSize = users.getSize();
+        /*int userSize = users.getSize();
         if (userSize>0) {
             userSize --;
             users.setSize(userSize);
             userService.updateUser(users);
         }else {
             return Constants.USER_SIZE_NOT_ENOUGH;
-        }
+        }*/
 
 
         // 添加借阅信息, 借阅默认为未归还状态
@@ -87,6 +87,10 @@ public class BorrowService {
      */
     public List<Borrow> findAllBorrowByUserId(Integer userId) {
         return borrowRepository.findBorrowByUserId(userId);
+    }
+
+    public List<Borrow> findAllBorrow(){
+        return borrowRepository.findAll();
     }
 
     /**
@@ -147,6 +151,10 @@ public class BorrowService {
         return borrowMapper.findBorrowByUserIdAndBookId(userId,bookId);
     }
 
+    public Borrow findBorrowByUserIdAndBookId2(String number,int bookId) {
+        return borrowMapper.findBorrowByUserIdAndBookId2(number,bookId);
+    }
+
     /**
          * 归还书籍,
      * @param userId 用户Id
@@ -170,6 +178,29 @@ public class BorrowService {
         bookService.updateBook(book);
         // 借阅记录改为已归还,删除记录
         Borrow borrow = this.findBorrowByUserIdAndBookId(userId, bookId);
+        this.deleteBorrow(borrow.getId());
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void retBook2(String number,int bookId) {
+        // 用户可借数量加1
+       /* Users user = userService.findUserById(userId);
+        Integer size = user.getSize();
+        size++;
+        user.setSize(size);
+        userService.updateUser(user);*/
+
+
+        // 书籍库存加1
+        Book book = bookService.findBook(bookId);
+        Integer bookSize = book.getSize();
+        bookSize++;
+        book.setSize(bookSize);
+        bookService.updateBook(book);
+
+        // 借阅记录改为已归还,删除记录
+        //Borrow borrow = this.findBorrowByUserIdAndBookId(userId, bookId);
+        Borrow borrow = this.findBorrowByUserIdAndBookId2(number, bookId);
         this.deleteBorrow(borrow.getId());
     }
 }

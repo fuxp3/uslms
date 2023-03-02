@@ -80,7 +80,10 @@ public class BorrowController {
         List<BackOut> outs = new ArrayList<>();
         if (userId!=null&&userId>0) {
             // 获取所有 已借阅 未归还书籍
-            List<Borrow> borrows = borrowService.findBorrowsByUserIdAndRet(userId, Constants.NO);
+            //List<Borrow> borrows = borrowService.findBorrowsByUserIdAndRet(userId, Constants.NO);
+
+            List<Borrow> borrows = borrowService.findAllBorrow();
+
             for (Borrow borrow : borrows) {
                 BackOut backOut = new BackOut();
                 BookOut out = bookService.findBookById(borrow.getBookId());
@@ -99,6 +102,8 @@ public class BorrowController {
                     backOut.setLate(Constants.NO_STR);
                 }
 
+                backOut.setNumber(borrow.getNumber());
+
                 outs.add(backOut);
             }
         }
@@ -108,9 +113,9 @@ public class BorrowController {
 
     @ApiOperation("归还书籍")
     @PostMapping("/ret")
-    public R retBook(Integer userId, Integer bookId) {
+    public R retBook(String number, Integer bookId) {
         // 归还图书
-        borrowService.retBook(userId,bookId);
+        borrowService.retBook2(number,bookId);
         return R.success(CodeEnum.SUCCESS);
     }
 

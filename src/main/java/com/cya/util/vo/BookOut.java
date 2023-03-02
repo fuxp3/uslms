@@ -43,4 +43,6 @@ public class BookOut {
 
     @ApiModelProperty("出版时间")
     private String publishTime;
+
+    private String number;
 }

@@ -46,4 +46,6 @@ public class Borrow {
 
     @ApiModelProperty("是否归还（0 已归还 1 未归还）")
     private Integer ret;
+
+    private String number;
 }
