@@ -6,6 +6,7 @@ import com.cya.entity.Borrow;
 import com.cya.entity.Users;
 import com.cya.repos.BorrowRepository;
 import com.cya.util.consts.Constants;
+import com.cya.util.ro.BookPageIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,7 +43,7 @@ public class BorrowService {
         //Users users = userService.findUserById(borrow.getUserId());
 
         // 查询是否已经借阅过该图书
-        /*Borrow bor = findBorrowByUserIdAndBookId(users.getId(),book.getId());
+        Borrow bor = findBorrowByUserIdAndBookId(borrow.getNumber(),book.getId());
         if (bor!=null) {
             Integer ret = bor.getRet();
             if (ret!=null) {
@@ -51,7 +52,7 @@ public class BorrowService {
                     return Constants.BOOK_BORROWED;
                 }
             }
-        }*/
+        }
 
         // 库存数量减一
         int size = book.getSize();
@@ -91,6 +92,17 @@ public class BorrowService {
 
     public List<Borrow> findAllBorrow(){
         return borrowRepository.findAll();
+    }
+
+    public List<Borrow> searchBorrow(String name,String isbn,String number){
+        return borrowMapper.searchBorrow(name,isbn,number);
+    }
+
+    public List<Borrow> searchBorrow(BookPageIn pageIn,String status){
+        if (null!=status && !status.trim().equals("") && "1".equals(status)){
+            return borrowMapper.searchBackBorrow(pageIn.getName(),pageIn.getIsbn(),pageIn.getNumber());
+        }
+        return borrowMapper.searchBorrow(pageIn.getName(),pageIn.getIsbn(),pageIn.getNumber());
     }
 
     /**
@@ -147,7 +159,7 @@ public class BorrowService {
      * @param userId 用户id
      * @param bookId 图书id
      */
-    public Borrow findBorrowByUserIdAndBookId(int userId,int bookId) {
+    public Borrow findBorrowByUserIdAndBookId(String userId,int bookId) {
         return borrowMapper.findBorrowByUserIdAndBookId(userId,bookId);
     }
 
@@ -177,7 +189,7 @@ public class BorrowService {
         book.setSize(bookSize);
         bookService.updateBook(book);
         // 借阅记录改为已归还,删除记录
-        Borrow borrow = this.findBorrowByUserIdAndBookId(userId, bookId);
+        Borrow borrow = this.findBorrowByUserIdAndBookId("", bookId);
         this.deleteBorrow(borrow.getId());
     }
 
@@ -201,6 +213,8 @@ public class BorrowService {
         // 借阅记录改为已归还,删除记录
         //Borrow borrow = this.findBorrowByUserIdAndBookId(userId, bookId);
         Borrow borrow = this.findBorrowByUserIdAndBookId2(number, bookId);
-        this.deleteBorrow(borrow.getId());
+        borrow.setStatus("已还");
+        borrowMapper.updateBorrowStatus(borrow);
+        //this.deleteBorrow(borrow.getId());
     }
 }

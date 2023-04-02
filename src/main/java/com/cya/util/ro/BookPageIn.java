@@ -11,6 +11,8 @@ public class BookPageIn {
     private String publish;
     private String type;
 
+    private String number;
+
     /** 当前页 */
     @ApiModelProperty("当前页")
     private Integer currPage;

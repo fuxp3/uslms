@@ -48,4 +48,6 @@ public class Borrow {
     private Integer ret;
 
     private String number;
+
+    private String status;
 }

@@ -40,4 +40,32 @@
 		delete from borrow
 		where book_id = #{bookId}
     </delete>
+
+    <select id="searchBorrow" resultMap="BaseResultMap">
+        SELECT bor.* FROM borrow bor,book book
+        WHERE bor.`book_id` = book.`id` and bor.`status`='借阅'
+        <if test="name != null and name != ''">
+            and (book.`name` like CONCAT('%',#{name},'%'))
+        </if>
+        <if test="isbn != null and isbn != ''">
+            and (book.`isbn` like CONCAT('%',#{isbn},'%'))
+        </if>
+        <if test="number != null and number != ''">
+            and (number like CONCAT('%',#{number},'%'))
+        </if>
+    </select>
+
+    <select id="searchBackBorrow" resultMap="BaseResultMap">
+        SELECT bor.* FROM borrow bor,book book
+        WHERE bor.`book_id` = book.`id` and bor.`status`='已还'
+        <if test="name != null and name != ''">
+            and (book.`name` like CONCAT('%',#{name},'%'))
+        </if>
+        <if test="isbn != null and isbn != ''">
+            and (book.`isbn` like CONCAT('%',#{isbn},'%'))
+        </if>
+        <if test="number != null and number != ''">
+            and (number like CONCAT('%',#{number},'%'))
+        </if>
+    </select>
 </mapper>
